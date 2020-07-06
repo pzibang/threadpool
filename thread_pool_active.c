@@ -57,7 +57,17 @@ typedef struct NTHREADPOOL {
 	
 } nThreadPool;
 
+static int ntyWorkerCreate(nThreadPool *pool);
+static void ntyWorkerCleanup(nThreadPool * pool);
+static void ntyNotifyWaiters(nThreadPool *pool);
+static void ntyJobCleanup(nThreadPool *pool);
 static void* ntyWorkerThread(void *arg);
+static void ntyCloneAttributes(pthread_attr_t *new_attr, pthread_attr_t *old_attr);
+nThreadPool *ntyThreadPoolCreate(int min_threads, int max_threads, int linger, pthread_attr_t *attr);
+int ntyThreadPoolQueue(nThreadPool *pool, JOB_CALLBACK func, void *arg);
+void nThreadPoolWait(nThreadPool *pool) ;
+void nThreadPoolDestroy(nThreadPool *pool);
+void king_counter(void *arg);
 
 #define NTY_POOL_WAIT			0x01
 #define NTY_POOL_DESTROY		0x02

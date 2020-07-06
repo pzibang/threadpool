@@ -52,6 +52,14 @@ typedef struct NWORKQUEUE {
 
 typedef nWorkQueue nThreadPool;
 
+
+static void *ntyWorkerThread(void *ptr);
+int ntyThreadPoolCreate(nThreadPool *workqueue, int numWorkers);
+void ntyThreadPoolShutdown(nThreadPool *workqueue);
+void ntyThreadPoolQueue(nThreadPool *workqueue, nJob *job);
+void king_counter(nJob *job);
+
+
 static void *ntyWorkerThread(void *ptr) {
 	nWorker *worker = (nWorker*)ptr;
 
